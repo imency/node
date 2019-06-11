@@ -1,0 +1,148 @@
+回顾
+express 
+简介：基于nodejs封装的上层服务框架
+特点：
+由中间件和路由和http动态渲染的工具
+视图动态的渲染
+提供简便的api
+
+中间件：
+body-parser  处理post请求 app.use(bodyparser.json( ))   处理json
+app.use（bodyparser.urlencoded（{extends}））   处理字符串
+如何使用中间件？
+1.加载 require
+2.使用中间件 app.use( )
+应用领域：
+登录
+1.有：   后台 node 框架 express
+2没有：数据库 mysql  mongodb 没有数据 用户
+a.定义一个用户 
+
+let user={
+username：“username”
+password：“123456”
+tokenid：“1”
+}
+
+koa2
+
+
+登录页面
+首先初始化
+npm install init -y
+然后下载包
+npm install express body-parser --save
+新建1.html
+var express=require("express")
+var bodyparser=require("body-parser")
+var app=express()
+app.use(bodyparser.json())
+app.use(bodyparser.urlencoded({extended:false}))
+app.post("/login",(req,res)=>{
+    // user 比作是数据库的数据
+    let user={
+        username:"admin",
+        password:"123456",
+        tokenId:"1"
+    }
+    if(req.body.username==user.username&&req.body.password==user.password){
+    res.send({"success":"ok"})
+}else{
+    res.send({"error":"failed"})
+}
+})
+app.listen(3000)
+
+
+
+
+ express.static
+ 静态资源
+把html通过服务端渲染出来
+
+// express.static
+// 静态资源
+// 把html通过服务端渲染出来
+// 服务端访问静态资源
+var express=require("express")
+var path=require("path")
+var app=express()
+
+// 使用中间件  要用app.use去调用
+app.use(express.static(path.join("./static")))
+// 访问资源目录
+app.listen(3000)
+
+// 1.express-art-template和art-template的区别
+// 是否在express包含art-template
+// 2.如何渲染视图
+// render
+// 3.express是集成art-template
+// 否
+
+
+
+// 模板引擎 ejs  art-template
+//下载  npm  install ejs art-template --save
+var express = require("express");
+var app = express();
+var art=require("express-art-template")
+/*1.目录要求 views   里面的文件后缀必须是ejs
+
+
+ * 2.项目配置 
+ *  */
+
+// 告诉服务端使用什么引擎  use   set
+// 设置项目的模板引擎
+app.set("view engine", "ejs");
+// 视图引擎 ejs
+app.engine("art",art)      //att-template 得用engine设置
+// 第一个参数指代模板类型  art html ejs
+app.get("/", (req, res) => {
+  // render 渲染 compile编译
+  res.render("bar.art",{
+    name:3485034985348
+  })
+  
+  // 路径
+});
+
+app.listen(3000);
+
+
+
+
+git
+码云：svn 和git
+svn  代码管理仓库  
+两区：
+本地 服务
+git 代码管理仓库
+集成  分布式管理 
+三区：
+本地区  暂存区 服务区
+操作git
+可视化
+soucetree
+
+
+命令行  git bash here
+git init  项目初始化      （
+
+）
+git  status  查看状态 
+git add  name.txt  添加文件  git  add  .   (.所有)
+git commit -m "注释"   提交文件
+$ git config --global user.email "1661197048@qq.com"
+$ git config --global user.name "3674.arvayx"
+$ git remote add origin https://github.com/imency/ensy.git (仓库地址 链接远程仓库
+Username for 'https://github.com': imency  （文档名儿）
+
+登录
+git  --config user.name  "用户名"
+git --config  user.password “密码”
+git  remote  add origin 仓库地址   链接远程仓库
+git push  -u origin master   推送到远端 （仅针对于第一次提交）
+后续提交直接  git push
+ 
